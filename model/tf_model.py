@@ -85,27 +85,28 @@ class Net(tf.keras.Model):
         self.act = kw['act'] if 'act' in kw else net_kws_defaults['act']
         #self.input = tf.keras.layers.Input(shape=input_size)   
 
-'''
-        #### ztycode ####
-        # self.mlp_input_size = self.get_mlp_input_size(input_size, self.conv)
-        self.n_mlp = [-1, output_size] # tf.keras don't need input size
-        if 'hidden_mlp' in kw:
-            self.n_mlp[1:1] = kw['hidden_mlp'] #now n_mlp has the full MLP config, e.g. [-1,100,10]
-        else:
-            self.n_mlp[1:1] = net_kws_defaults['hidden_mlp']
-        self.num_hidden_layers_mlp = len(self.n_mlp[1:-1])
-        self.apply_dropouts_mlp = kw['apply_dropouts_mlp'] if 'apply_dropouts_mlp' in kw else self.num_hidden_layers_mlp*net_kws_defaults['apply_dropouts_mlp']
-        self.dropout_probs_mlp = kw['dropout_probs_mlp'] if 'dropout_probs_mlp' in kw else np.count_nonzero(self.apply_dropouts_mlp)*net_kws_defaults['dropout_probs_mlp']
+# '''
+#         #### ztycode ####
+#         # self.mlp_input_size = self.get_mlp_input_size(input_size, self.conv)
+#         self.n_mlp = [-1, output_size] # tf.keras don't need input size
+#         if 'hidden_mlp' in kw:
+#             self.n_mlp[1:1] = kw['hidden_mlp'] #now n_mlp has the full MLP config, e.g. [-1,100,10]
+#         else:
+#             self.n_mlp[1:1] = net_kws_defaults['hidden_mlp']
+#         self.num_hidden_layers_mlp = len(self.n_mlp[1:-1])
+#         self.apply_dropouts_mlp = kw['apply_dropouts_mlp'] if 'apply_dropouts_mlp' in kw else self.num_hidden_layers_mlp*net_kws_defaults['apply_dropouts_mlp']
+#         self.dropout_probs_mlp = kw['dropout_probs_mlp'] if 'dropout_probs_mlp' in kw else np.count_nonzero(self.apply_dropouts_mlp)*net_kws_defaults['dropout_probs_mlp']
        
-        self.mlp = {}
-        dropout_index = 0
-        foo = GRU(256, return_sequences=True, stateful=False)(training_in)
-        for i in range(1, len(self.n_mlp)):
-            self.mlp['dense-{0}'.format(i - 1)] = tf.keras.layers.Dense(self.n_mlp[i], activation=F_activations[self.act] if i != len(self.n_mlp) - 1 else F_activations['softmax'])
-            if i != len(self.n_mlp) - 1 and self.apply_dropouts_mlp[i - 1] == 1:
-                self.mlp['drop-{0}'.format(i - 1)] = tf.keras.layers.Dropout(self.dropout_probs_mlp[dropout_index])
-                dropout_index += 1
-'''
+#         self.mlp = {}
+#         dropout_index = 0
+#         foo = GRU(256, return_sequences=True, stateful=False)(training_in)
+#         for i in range(1, len(self.n_mlp)):
+#             self.mlp['dense-{0}'.format(i - 1)] = tf.keras.layers.Dense(self.n_mlp[i], activation=F_activations[self.act] if i != len(self.n_mlp) - 1 else F_activations['softmax'])
+#             if i != len(self.n_mlp) - 1 and self.apply_dropouts_mlp[i - 1] == 1:
+#                 self.mlp['drop-{0}'.format(i - 1)] = tf.keras.layers.Dropout(self.dropout_probs_mlp[dropout_index])
+#                 dropout_index += 1
+# '''
+        
         #### Conv ####
         self.out_channels = kw['out_channels'] if 'out_channels' in kw else net_kws_defaults['out_channels']
         self.num_layers_conv = len(self.out_channels)

@@ -55,7 +55,7 @@ if args.dl_framework == 'torch':
 elif args.dl_framework == 'tf.keras':
     from model.tf_model import get_data_npz
     os.environ['DNC_DL_FRAMEWORK'] = 'tf.keras'
-from model_search import run_model_search_cnn, run_model_search_mlp, run_model_search_rnn
+from model_search import run_model_search_cnn, run_model_search_mlp#ztcode
 
 
 try:
@@ -88,14 +88,14 @@ elif args.network == 'mlp':
                          drop_probs=args.drop_probs_mlp,
                          num_best=args.num_best, prior_time=args.prior_time)
 
-#ztycode
-elif args.network == 'rnn':
-    run_model_search_rnn(data=data, dataset_code=dataset_code,
-                         input_size=args.input_size, output_size=args.output_size, verbose=args.verbose,
-                         wc=args.wc, penalize=args.penalize, tbar_epoch=args.tbar_epoch, numepochs=args.numepochs, val_patience=args.val_patience,
-                         bo_prior_states=args.bo_prior_states, bo_steps=args.bo_steps, bo_explore=args.bo_explore,
-                         num_hidden_layers=args.num_hidden_layers, hidden_nodes=args.hidden_nodes, lr=args.lr, weight_decay=args.weight_decay, batch_size=args.batch_size,
-                         drop_probs=args.drop_probs_mlp,
-                         num_best=args.num_best, prior_time=args.prior_time)
+# #ztycode
+# elif args.network == 'rnn':
+#     run_model_search_rnn(data=data, dataset_code=dataset_code,
+#                          input_size=args.input_size, output_size=args.output_size, verbose=args.verbose,
+#                          wc=args.wc, penalize=args.penalize, tbar_epoch=args.tbar_epoch, numepochs=args.numepochs, val_patience=args.val_patience,
+#                          bo_prior_states=args.bo_prior_states, bo_steps=args.bo_steps, bo_explore=args.bo_explore,
+#                          num_hidden_layers=args.num_hidden_layers, hidden_nodes=args.hidden_nodes, lr=args.lr, weight_decay=args.weight_decay, batch_size=args.batch_size,
+#                          drop_probs=args.drop_probs_mlp,
+#                          num_best=args.num_best, prior_time=args.prior_time)
 
 
